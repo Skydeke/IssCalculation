@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import org.jfree.chart.fx.ChartViewer?>
+
+<VBox prefHeight="600.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <SplitPane dividerPositions="0.7" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <items>
+            <ChartViewer fx:id="viewer" prefHeight="576.0" prefWidth="572.0" />
+            <VBox prefHeight="576.0" prefWidth="314.0">
+               <children>
+                  <Region prefHeight="20.0" />
+                  <Label text="Planeten-Einstellungen">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="20.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" prefWidth="123.0" text="Planetenmasse:" />
+                        <TextField fx:id="planetMass" promptText="Planetenmasse" text="5.974e24" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="10.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" prefWidth="123.0" text="Planetenradius:" />
+                        <TextField fx:id="planetRadius" promptText="Planetenradius" text="6374150e0" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="20.0" />
+                  <Label text="Satelliten-Einstellungen">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="20.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" prefWidth="123.0" text="Startposition X:" />
+                        <TextField fx:id="sStartX" promptText="Startposition X" text="0e0" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="10.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" prefWidth="123.0" text="Startposition Y:" />
+                        <TextField fx:id="sStartY" promptText="Startposition Y" text="6782150e0" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="20.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" text="Startgeschwindigkeit X:" />
+                        <TextField fx:id="sGeschX" promptText="Startgeschwindigkeit X" text="7660e0" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="10.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" text="Startgeschwindigkeit Y:" />
+                        <TextField fx:id="sGeschY" promptText="Startgeschwindigkeit Y" text="0e0" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="20.0" />
+                  <Label text="Simulation">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="20.0" />
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Button fx:id="startCalculation" mnemonicParsing="false" text="Start">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="stopCalculation" mnemonicParsing="false" text="Stop">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="resetCalculation" alignment="TOP_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="Reset / Werte nutzen">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Region prefHeight="10.0" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" prefWidth="123.0" text="Zeitschritt:" />
+                        <TextField fx:id="zeitSchritt" promptText="Zeitschritt in Sekunden" text="5" />
+                     </children>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label fx:id="errorLabel" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Satus Stuff - yay!" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="by David Metzler" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
