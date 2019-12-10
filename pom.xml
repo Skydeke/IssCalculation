@@ -8,6 +8,8 @@
     <artifactId>IssCalculation</artifactId>
     <version>1.0</version>
     <build>
+        <directory>${project.basedir}/target</directory>
+        <sourceDirectory>${project.basedir}/src/</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
