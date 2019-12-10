@@ -1,5 +1,11 @@
 package main.java;
 
+import static java.lang.Thread.sleep;
+
+import java.awt.geom.Ellipse2D;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,7 +17,6 @@ import javafx.scene.control.TextField;
 import main.java.logic.Calculation;
 import main.java.logic.Planet;
 import main.java.logic.Satellit;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYShapeAnnotation;
 import org.jfree.chart.axis.NumberAxis;
@@ -27,14 +32,6 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import static java.lang.Thread.sleep;
-
 public class Controller implements Initializable {
 
     private JFreeChart chart;
@@ -45,16 +42,11 @@ public class Controller implements Initializable {
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
-    @FXML
-    ChartViewer viewer;
-    @FXML
-    Button resetCalculation;
-    @FXML
-    Button startCalculation;
-    @FXML
-    Button stopCalculation;
-    @FXML
-    TextField zeitSchritt;
+    @FXML ChartViewer viewer;
+    @FXML Button resetCalculation;
+    @FXML Button startCalculation;
+    @FXML Button stopCalculation;
+    @FXML TextField zeitSchritt;
     @FXML TextField planetMass;
     @FXML TextField planetRadius;
     @FXML TextField sStartX;
