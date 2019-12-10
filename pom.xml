@@ -6,10 +6,16 @@
 
     <groupId>Skydeke</groupId>
     <artifactId>IssCalculation</artifactId>
-    <version>1.0</version>
+    <version>v1.0</version>
     <build>
         <directory>${project.basedir}/target</directory>
         <sourceDirectory>${project.basedir}/src/</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

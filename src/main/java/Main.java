@@ -15,7 +15,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         final Controller controller = new Controller();
         loader.setController(controller);
-        Parent root = loader.load(getClass().getResourceAsStream("mainUI.fxml"));
+        Parent root = loader.load(Main.class.getResourceAsStream("/mainUI.fxml"));
         stage.setTitle("IssCalculate - Kreisbahnsimulationen");
         Scene s = new Scene(root);
         stage.setScene(s);
