@@ -12,10 +12,13 @@ public class Calculation extends SwingWorker {
     private double zeit = 0;
     private double lastZeit = 0;
 
-    public Calculation(double zeitschritt, Planet planet, Satellit satellit){
+    private Callback cb;
+
+    public Calculation(double zeitschritt, Planet planet, Satellit satellit, Callback cb){
         this.zeitschritt = zeitschritt;
         this.planet = planet;
         this.satellit = satellit;
+        this.cb = cb;
     }
 
     @Override
@@ -25,12 +28,16 @@ public class Calculation extends SwingWorker {
         //Radius Satellit Massepunkt(0, 0)
         double r = Math.sqrt((satellit.getX() * satellit.getX() + satellit.getY() * satellit.getY()));
 
+        if(r <= planet.getRadius()){
+            cb.call();
+        }
+
         //Die Beschleunigung in X-Richtung
         double ax = (-1 * Konstanten.G * planet.getMasse() * satellit.getX())/(r*r*r);
         satellit.setVx(satellit.getVx() + ax * deltaZeit);
         satellit.setX(satellit.getX() + satellit.getVx() * deltaZeit);
 
-        //Die Beschleunigung in X-Richtung
+        //Die Beschleunigung in Y-Richtung
         double ay = (-1 * Konstanten.G * planet.getMasse() * satellit.getY())/(r*r*r);
         satellit.setVy(satellit.getVy() + ay * deltaZeit);
         satellit.setY(satellit.getY() + satellit.getVy() * deltaZeit);

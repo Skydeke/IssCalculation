@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.java.logic.Calculation;
+import main.java.logic.Callback;
 import main.java.logic.Planet;
 import main.java.logic.Satellit;
 import org.jfree.chart.JFreeChart;
@@ -42,19 +43,35 @@ public class Controller implements Initializable {
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
-    @FXML ChartViewer viewer;
-    @FXML Button resetCalculation;
-    @FXML Button startCalculation;
-    @FXML Button stopCalculation;
-    @FXML TextField zeitSchritt;
-    @FXML TextField planetMass;
-    @FXML TextField planetRadius;
-    @FXML TextField sStartX;
-    @FXML TextField sStartY;
-    @FXML TextField sGeschX;
-    @FXML TextField sGeschY;
+    @FXML
+    ChartViewer viewer;
+    @FXML
+    Button resetCalculation;
+    @FXML
+    Button startCalculation;
+    @FXML
+    Button stopCalculation;
+    @FXML
+    TextField zeitSchritt;
+    @FXML
+    TextField planetMass;
+    @FXML
+    TextField planetRadius;
+    @FXML
+    TextField sStartX;
+    @FXML
+    TextField sStartY;
+    @FXML
+    TextField sGeschX;
+    @FXML
+    TextField sGeschY;
     @FXML
     Label errorLabel;
+    @FXML
+    Label endLabel;
+
+
+    private boolean shallCalculate = true;
 
     public Controller() {
         calculateThread = new Thread(() -> {
@@ -72,6 +89,7 @@ public class Controller implements Initializable {
             if (calculateThread.isAlive())
                 calculateThread.stop();
             Platform.runLater(() -> {
+                shallCalculate = true;
                 dataset.getSeries(0).clear();
                 calculateThread = new Thread(() -> {
                     double radius = Double.parseDouble(planetRadius.getText());
@@ -81,8 +99,26 @@ public class Controller implements Initializable {
                     final Calculation ct = new Calculation(getZeitschrittAsNumber(),
                             planet, new Satellit(Double.parseDouble(sStartX.getText()),
                             Double.parseDouble(sStartY.getText()),
-                            Double.parseDouble(sGeschX.getText()), Double.parseDouble(sGeschY.getText())));
-                    while (calculateThread.isAlive()) {
+                            Double.parseDouble(sGeschX.getText()), Double.parseDouble(sGeschY.getText())), () -> {
+                                Thread t = new Thread(() -> {
+                                    Platform.runLater(() -> {
+                                    endLabel.setText("Wir sind auf die Planetenoberfläche gecrashed.");
+                                    startCalculation.setDisable(true);
+                                    stopCalculation.setDisable(true);
+                                    shallCalculate = false;
+                                    });
+                                    try {
+                                        sleep(3000);
+                                    } catch (InterruptedException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                    Platform.runLater(() -> {
+                                        endLabel.setText("");
+                                    });
+                                });
+                                t.start();
+                            });
+                    while (calculateThread.isAlive() && shallCalculate) {
                         Satellit s = ct.doInBackground();
                         add(s.getX(), s.getY(), s.getTime(), s.getVx(), s.getVy());
                         try {
@@ -90,6 +126,11 @@ public class Controller implements Initializable {
                         } catch (InterruptedException e2) {
                             e2.printStackTrace();
                         }
+                    }
+                    try {
+                        sleep(8000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
                 });
                 startCalculation.setDisable(false);
@@ -99,6 +140,7 @@ public class Controller implements Initializable {
         startCalculation.setOnAction(e -> {
             if (calculateThread != null && !calculateThread.isInterrupted()
                     && !calculateThread.isAlive()) {
+                shallCalculate = true;
                 try {
                     calculateThread.start();
                     System.out.println("Starting to calculate...");
@@ -110,6 +152,7 @@ public class Controller implements Initializable {
             }
         });
         stopCalculation.setOnAction(e -> {
+            shallCalculate = false;
             calculateThread.stop();
             startCalculation.setDisable(true);
             stopCalculation.setDisable(true);
@@ -239,7 +282,7 @@ public class Controller implements Initializable {
                 synchronized (dataset.getSeries().get(0)) {
                     ((XYSeries) dataset.getSeries().get(0)).add(x, y);
                     errorLabel.setText("Bahngeschwindigkeit: " + Math.sqrt(vx * vx + vy * vy) +
-                                " Vx: " + vx + " Vy: " + vy);
+                            " Vx: " + vx + " Vy: " + vy);
 
                 }
             });
